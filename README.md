@@ -53,7 +53,7 @@ schema目录中有wubi和piny拼音方案,分别算来自[极点五笔](https://
 
 ```bash
 
-rm -rf ~/Library/Transput/*
+rm -rf ~/Library/Transput
 
 # 五笔
 cp -r schema/Wubi ~/Library/Transput

@@ -110,7 +110,7 @@ class InputProcesser {
         case .lower(let char):
             if isTyping {
                 sendToRime(keyCode: keyCode, char: char)
-                return .typing
+                return preedit.isEmpty ? .conditionalCommit : .typing
             }
             if isCommandMode {
                 os_log(.debug, log: log, "处理命令")
@@ -144,7 +144,7 @@ class InputProcesser {
                 sendToRime(keyCode: keyCode, char: char)
                 return isTyping ? .typing : .conditionalCommit
             }
-            accept(String(char))
+            accept(String(convertPunctuation(char)))
             return char == "/" ? .typing : .conditionalCommit
         case .left:
             if isTyping {
