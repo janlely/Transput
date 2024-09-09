@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleLocalizations</key>
+	<array>
+		<string>zh-Hans</string>
+	</array>
+	<key>InputMethodConnectionName</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)_Connection</string>
+	<key>InputMethodLanguages</key>
+	<array>
+		<string>zh-Hans</string>
+	</array>
+	<key>InputMethodServerControllerClass</key>
+	<string>$(PRODUCT_MODULE_NAME).TransputInputController</string>
+	<key>InputMethodServerPreferencesWindowControllerClass</key>
+	<string>$(PRODUCT_MODULE_NAME).ConfigWindowController</string>
+	<key>TICapsLockLanguageSwitchCapable</key>
+	<true/>
+	<key>TISInputSourceLanguages</key>
+	<array>
+		<string>zh-Hans</string>
+	</array>
+	<key>TISIntendedLanguage</key>
+	<string>zh-Hans</string>
+	<key>tsInputMethodIconFileKey</key>
+	<string>logo.tiff</string>
+	<key>tsInputModeCharacterRepertoireKey</key>
+	<array>
+		<string>Hans</string>
+	</array>
+</dict>
+</plist>
