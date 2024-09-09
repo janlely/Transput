@@ -47,7 +47,7 @@ Checked in March 2024.
 
 ## 切换输入方案
 
-schema目录中有wubi和piny拼音方案,分别算来自[极点五笔](https://github.com/KyleBing/rime-wubi86-jidian)和[雾凇拼音](https://github.com/iDvel/rime-ice)
+schema目录中有五笔和拼音方案,分别算来自[极点五笔](https://github.com/KyleBing/rime-wubi86-jidian)和[雾凇拼音](https://github.com/iDvel/rime-ice)
 
 * 复制方案文件
 
