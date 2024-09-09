@@ -37,7 +37,7 @@ Checked in March 2024.
 * build
 ```bash
 
-./install.sh
+./install.sh wubi # or ./install.sh pinyin
 ```
 
 * 注销当前用户
