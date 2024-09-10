@@ -351,7 +351,9 @@ class TransputInputController: IMKInputController {
     func withAttribute(_ text: String) -> NSAttributedString {
         let attrText = NSMutableAttributedString(string: text)
         if !self.inputProcesser.preedit.isEmpty {
-            attrText.addAttribute(.font, value: NSFont.systemFont(ofSize: 18, weight: .bold), range: NSMakeRange(self.inputProcesser.breakPos, self.inputProcesser.preedit.count))
+            let range = NSMakeRange(self.inputProcesser.breakPos, self.inputProcesser.preedit.count)
+            let attrs = mark(forStyle: kTSMHiliteBlockFillText, at: range)! as! [NSAttributedString.Key: Any]
+            attrText.setAttributes(attrs, range: range)
         }
         return attrText
     }

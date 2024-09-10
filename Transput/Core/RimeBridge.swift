@@ -133,7 +133,7 @@ class RimeBridge {
     func getCursorPos(_ session: RimeSessionId) -> Int {
         var ctx = RimeContext_stdbool.rimeStructInit()
         if rimeAPI.get_context(session, &ctx) {
-            return Int(ctx.composition.cursor_pos)
+            return committed.count + Int(ctx.composition.cursor_pos)
         }
         os_log(.error, log: log, "error get composition.cursor_pos")
         return 0

@@ -239,7 +239,7 @@ class InputProcesser {
     func clear() {
         headAndTail = ""
         breakPos = 0
-        isEnMode = false
+//        isEnMode = false
         isCommandMode = false
         rimeBridge.clearComposition(session)
     }

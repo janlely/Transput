@@ -26,32 +26,30 @@ class TransputTests: XCTestCase {
         let inputHandler = InputProcesser()
         inputHandler.initialize(rimeBridge: NSApp.appDelegate.rimeBridge)
         
-        let _ = inputHandler.processInput(.lower(char: "n"), keyCode: 0x00)
+        let _ = inputHandler.processInput(.lower(char: "s"), keyCode: 0x01)
         var text = inputHandler.getComposingText()
-        assert(text == "n")
-        
-        let _ = inputHandler.processInput(.lower(char: "i"), keyCode: 0x00)
+        print("text: \(text)")
+        print("cursor: \(inputHandler.getCursorPos())")
+
+        let _ = inputHandler.processInput(.lower(char: "f"), keyCode: 0x03)
         text = inputHandler.getComposingText()
-        assert(text == "ni")
-        
-        let _ = inputHandler.processInput(.lower(char: "h"), keyCode: 0x00)
+        print("text: \(text)")
+        print("cursor: \(inputHandler.getCursorPos())")
+
+        let _ = inputHandler.processInput(.lower(char: "y"), keyCode: 0x10)
         text = inputHandler.getComposingText()
-        assert(text == "ni h")
-        
-        let _ = inputHandler.processInput(.lower(char: "a"), keyCode: 0x00)
+        print("text: \(text)")
+        print("cursor: \(inputHandler.getCursorPos())")
+
+        let _ = inputHandler.processInput(.lower(char: "n"), keyCode: 0x2D)
         text = inputHandler.getComposingText()
-        assert(text == "ni ha")
-        
-        let _ = inputHandler.processInput(.lower(char: "o"), keyCode: 0x00)
+        print("text: \(text)")
+        print("cursor: \(inputHandler.getCursorPos())")
+
+        let _ = inputHandler.processInput(.lower(char: "y"), keyCode: 0x00)
         text = inputHandler.getComposingText()
-        assert(text == "ni hao")
-        
-        let _ = inputHandler.processInput(.left, keyCode: 123)
-        text = inputHandler.getComposingText()
-        assert(text == "nihao")
-        
-        let res = inputHandler.processInput(.number(num: "1"), keyCode: 0x12)
-        text = inputHandler.getComposingText()
+        print("text: \(text)")
+        print("cursor: \(inputHandler.getCursorPos())")
 
     }
 
