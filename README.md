@@ -29,6 +29,12 @@ Checked in March 2024.
 | 粘贴文本 |  从系统剪切板粘贴内容 | `/v` |
 
 
+## 支持的AI模型 
+
+* 通义千问
+* Gpt-3.5-Turbo
+
+需要自行申请apikey
 
 
 
