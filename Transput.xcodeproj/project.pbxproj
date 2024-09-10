@@ -18,7 +18,6 @@
 		E5207A3A2C5F8C2100D78D7A /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5207A282C5F8C2100D78D7A /* preferences.xib */; };
 		E5207A3B2C5F8C2100D78D7A /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A2A2C5F8C2100D78D7A /* CommonUtils.swift */; };
 		E5207A3C2C5F8C2100D78D7A /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A2B2C5F8C2100D78D7A /* HttpClient.swift */; };
-		E5207A3D2C5F8C2100D78D7A /* Trie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A2C2C5F8C2100D78D7A /* Trie.swift */; };
 		E5207A3E2C5F8C2100D78D7A /* TongyiQianWen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A2E2C5F8C2100D78D7A /* TongyiQianWen.swift */; };
 		E5207A3F2C5F8C2100D78D7A /* Translater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A2F2C5F8C2100D78D7A /* Translater.swift */; };
 		E5207A402C5F8C2100D78D7A /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E5207A312C5F8C2100D78D7A /* Preview Assets.xcassets */; };
@@ -95,7 +94,6 @@
 		E5207A282C5F8C2100D78D7A /* preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = preferences.xib; sourceTree = "<group>"; };
 		E5207A2A2C5F8C2100D78D7A /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
 		E5207A2B2C5F8C2100D78D7A /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
-		E5207A2C2C5F8C2100D78D7A /* Trie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trie.swift; sourceTree = "<group>"; };
 		E5207A2E2C5F8C2100D78D7A /* TongyiQianWen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TongyiQianWen.swift; sourceTree = "<group>"; };
 		E5207A2F2C5F8C2100D78D7A /* Translater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Translater.swift; sourceTree = "<group>"; };
 		E5207A312C5F8C2100D78D7A /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -243,7 +241,6 @@
 			children = (
 				E5207A2A2C5F8C2100D78D7A /* CommonUtils.swift */,
 				E5207A2B2C5F8C2100D78D7A /* HttpClient.swift */,
-				E5207A2C2C5F8C2100D78D7A /* Trie.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -454,7 +451,6 @@
 				E52B643A2C8AD6BC00D6B658 /* RimeBridge.swift in Sources */,
 				E52B64382C8AD4D700D6B658 /* BridgingFunctions.swift in Sources */,
 				E5207A3C2C5F8C2100D78D7A /* HttpClient.swift in Sources */,
-				E5207A3D2C5F8C2100D78D7A /* Trie.swift in Sources */,
 				E5207A372C5F8C2100D78D7A /* TransputInputController.swift in Sources */,
 				E5207A422C5F8C2100D78D7A /* NSRange.swift in Sources */,
 				E5207A3F2C5F8C2100D78D7A /* Translater.swift in Sources */,

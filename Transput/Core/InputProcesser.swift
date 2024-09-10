@@ -17,7 +17,6 @@ class InputProcesser {
     var preedit: String = ""
     var cadidatesRange: [Int] = [] //候选词对应的编码长度
     var isEnMode: Bool = false
-    private var wubiDict: TrieNode! //五笔词库
     private var isCommandMode: Bool = false
     var rimeBridge: RimeBridge!
     private var session: RimeSessionId = 0
