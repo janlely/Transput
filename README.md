@@ -32,12 +32,15 @@ Checked in March 2024.
 
 
 
-## 本地安装
+## 本地编译安装
 
 * build
 ```bash
 
-./install.sh wubi # or ./install.sh pinyin
+xcodebuild -configuration Release -arch arm64
+
+cp -r build/Release/Transput.app ~/Library/Input\ Methods/
+
 ```
 
 * 注销当前用户
