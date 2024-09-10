@@ -304,6 +304,7 @@
 				1A41E61126E745D9009B65D7 /* Frameworks */,
 				1A41E61226E745D9009B65D7 /* Resources */,
 				E59187562C885E6F002DF4CA /* Embed Libraries */,
+				E5DD498E2C8FF260001AB529 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -421,6 +422,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E5DD498E2C8FF260001AB529 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# 目标SharedSupport目录路径\nDESTINATION_FOLDER=\"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/SharedSupport\"\n\n# 创建SharedSupport目录（如果不存在）\nmkdir -p \"${DESTINATION_FOLDER}\"\n\n# 复制源文件夹到SharedSupport目录\ncp -r ${PROJECT_DIR}/schema/Pinyin/* \"${DESTINATION_FOLDER}\"\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1A41E61026E745D9009B65D7 /* Sources */ = {
