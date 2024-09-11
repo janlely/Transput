@@ -550,7 +550,10 @@ class TransputInputController: IMKInputController {
     
     override func commitComposition(_ sender: Any!) {
         os_log(.info, log: log, "系统自动提交")
-        commitText()
+//        commitText()
+        self.hideTransPanel()
+        self.inputProcesser.clear()
+        hideCadidatesWindow()
     }
     
     
