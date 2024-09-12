@@ -1,53 +1,90 @@
-# Transput
+# Transput - 支持 AI 翻译的智能输入法
 
-一个支持AI翻译的拼音输入法，基础框架fork自[Typut](https://github.com/ensan-hcl/Typut)
-引擎使用rime,引擎配置相关代码从[squirrel](https://github.com/rime/squirrel) copy而来
+## 项目简介
 
+Transput 是一款专为经常在中英文环境下工作的用户打造的智能输入法。它基于 Rime 输入法框架，集成了先进的 AI 翻译功能，旨在为用户提供流畅高效的双语输入和翻译体验。无论是在与外籍同事沟通、阅读英文文献、还是撰写中英文邮件时，Transput 都能帮助你轻松应对。
 
+## 功能亮点
 
-## Working Environment
+- **AI 翻译**：内置通义千问和 GPT-3.5-Turbo 两种先进的 AI 翻译模型，一键实现中英互译。
+- **双语输入**：支持中英文混合输入，输入法会自动识别语言，让你无缝切换。
+- **快捷键操作**：提供一系列直观的快捷键，让你掌控全局，高效输入。
+- **多种输入方案**：内置五笔、拼音等多种输入方案，用户可根据习惯自由切换。
 
-Checked in March 2024.
-* macOS 14.3
-* Swift 5.10
-* Xcode 15.3
-* Arch arm64
+## 界面预览
 
-## 使用指南
+![主界面](./show.gif)
 
-* AI翻译
-![image](./show.gif)
+* 主界面：简洁美观的输入界面，支持中英文混合输入
+* 翻译功能：一键触发 AI 翻译，实现中英互译
+* 输入方案切换：轻松切换五笔、拼音等多种输入方案
 
-## 快捷键
+## 安装指南
+
+### 从源码编译安装
+
+1. 克隆本仓库：`git clone https://github.com/yourusername/transput.git`
+2. 进入项目目录：`cd transput`
+3. 编译项目：`xcodebuild -configuration Release -arch arm64`
+4. 拷贝编译好的应用：`cp -r build/Release/Transput.app ~/Library/Input\ Methods/`
+5. 注销当前用户，重新登录
+6. 在系统输入法设置中添加 Transput
+
+### 下载安装包
+
+我们为主流系统打包了安装包，可以从以下链接下载：
+
+- [macOS-arm64](https://github.com/janlely/Transput/releases/download/1.0.0/Transput.pkg)
+
+下载完成后，双击安装包，按照提示完成安装即可。
+
+## 使用教程
+
+### 快捷键
 
 | 功能 | 描述 | 快捷键 |
-| :-----: |  :----: | :----: |
+| :-----: | :----: | :----: |
 | 中英切换 | 在输入法内切换中英文，便于翻译前的中英混合输入 | `Shift` |
-| 翻译开关 | 开启/关闭翻译功能，方便非翻译场景下使用(需要先设置apikey) | `Ctrl_t` or `/s` |
-| 翻译        |  将当前的文本进行AI翻译后自动提交  |  `Ctrl_Enter` or `/t` |
-| 提交文本 |  无需翻译，直接提交当前文本  | `Enter`  or  `/g` |
-| 粘贴文本 |  从系统剪切板粘贴内容 | `/v` |
+| 翻译开关 | 开启/关闭翻译功能，方便非翻译场景下使用(需要先设置apikey) | `Ctrl_t` 或 `/s` |
+| 翻译 | 将当前的文本进行AI翻译后自动提交 | `Ctrl_Enter` 或 `/t` |  
+| 提交文本 | 无需翻译，直接提交当前文本 | `Enter` 或 `/g` |
+| 粘贴文本 | 从系统剪切板粘贴内容 | `/v` |
 
+### 进阶配置
 
-## 支持的AI模型 
+Transput 基于 Rime 框架，因此可以通过 Rime 的配置文件进行深度定制。在项目的 `schema` 目录中，我们提供了五笔和拼音两套输入方案。你可以通过以下命令切换输入方案：
 
-* 通义千问
-* Gpt-3.5-Turbo
-
-需要自行申请apikey
-
-
-
-## 本地编译安装
-
-* build
 ```bash
+rm -rf ~/Library/Transput
 
-xcodebuild -configuration Release -arch arm64
+# 五笔
+cp -r schema/Wubi ~/Library/Transput
 
-cp -r build/Release/Transput.app ~/Library/Input\ Methods/
-
+# 拼音 
+cp -r schema/Pinyin ~/Library/Transput
 ```
+
+切换完成后，点击输入法菜单中的 `Deploy` 按钮重新部署，即可使用新的输入方案。
+
+如果你熟悉 Rime 的配置语法，也可以直接修改 `schema` 目录中的配置文件，定制输入法的外观和行为。
+
+## 感谢
+
+Transput 的诞生离不开以下开源项目：
+
+- [Rime](https://rime.im/)：中州韵输入法引擎
+- [Typut](https://github.com/ensan-hcl/Typut)：输入法基础框架
+- [Squirrel](https://github.com/rime/squirrel)：输入法 Mac 平台的实现
+- [极点五笔](https://github.com/KyleBing/rime-wubi86-jidian)：五笔输入方案
+- [雾凇拼音](https://github.com/iDvel/rime-ice)：拼音输入方案
+
+同时也感谢所有为本项目贡献代码的开发者们！
+
+如果你也对输入法开发感兴趣，欢迎参与到 Transput 的开发和完善中来。你可以通过提交 Issue 或 PR 的方式为项目贡献自己的力量。让我们一起打造更智能、更人性化的输入法吧！
+
+## 问题反馈
+
+如果你在使用过程中遇到任何问题，或者有任何建议和想法，欢迎提ISSUE或发送邮件至98705766@qq.com
 
 * 注销当前用户
 
