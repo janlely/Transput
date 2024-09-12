@@ -50,23 +50,27 @@ Transput 是一款专为经常在中英文环境下工作的用户打造的智�
 | 提交文本 | 无需翻译，直接提交当前文本 | `Enter` 或 `/g` |
 | 粘贴文本 | 从系统剪切板粘贴内容 | `/v` |
 
-### 进阶配置
+## 切换输入方案
 
-Transput 基于 Rime 框架，因此可以通过 Rime 的配置文件进行深度定制。在项目的 `schema` 目录中，我们提供了五笔和拼音两套输入方案。你可以通过以下命令切换输入方案：
+schema目录中有五笔和拼音方案,分别算来自[极点五笔](https://github.com/KyleBing/rime-wubi86-jidian)和[雾凇拼音](https://github.com/iDvel/rime-ice)
+
+* 复制方案文件
 
 ```bash
+
 rm -rf ~/Library/Transput
 
 # 五笔
 cp -r schema/Wubi ~/Library/Transput
 
-# 拼音 
+# 拼音
 cp -r schema/Pinyin ~/Library/Transput
+
 ```
 
-切换完成后，点击输入法菜单中的 `Deploy` 按钮重新部署，即可使用新的输入方案。
+* 重载输入法
 
-如果你熟悉 Rime 的配置语法，也可以直接修改 `schema` 目录中的配置文件，定制输入法的外观和行为。
+点击输入法菜单中的`Deploy`按钮,需要等待一会儿
 
 ## 感谢
 
@@ -91,24 +95,3 @@ Transput 的诞生离不开以下开源项目：
 * 在系统输入法设置中添加Transput
 
 
-## 切换输入方案
-
-schema目录中有五笔和拼音方案,分别算来自[极点五笔](https://github.com/KyleBing/rime-wubi86-jidian)和[雾凇拼音](https://github.com/iDvel/rime-ice)
-
-* 复制方案文件
-
-```bash
-
-rm -rf ~/Library/Transput
-
-# 五笔
-cp -r schema/Wubi ~/Library/Transput
-
-# 拼音
-cp -r schema/Pinyin ~/Library/Transput
-
-```
-
-* 重载输入法
-
-点击输入法菜单中的`Deploy`按钮,需要等待一会儿
