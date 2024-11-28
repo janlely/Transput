@@ -143,7 +143,11 @@ class InputProcesser {
                 sendToRime(keyCode: keyCode, char: char)
                 return isTyping ? .typing : .conditionalCommit
             }
-            accept(String(convertPunctuation(char)))
+            if !isEnMode {
+                accept(String(convertPunctuation(char)))
+            } else {
+                accept(String(convertPunctuation(char)))
+            }
             return char == "/" ? .typing : .conditionalCommit
         case .left:
             if isTyping {
