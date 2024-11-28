@@ -146,7 +146,7 @@ class InputProcesser {
             if !isEnMode {
                 accept(String(convertPunctuation(char)))
             } else {
-                accept(String(convertPunctuation(char)))
+                accept(String(char))
             }
             return char == "/" ? .typing : .conditionalCommit
         case .left:
