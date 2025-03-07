@@ -333,6 +333,10 @@ class TransputInputController: IMKInputController {
         case .selecting:
             self.showSchemaSelect()
             return true
+        case .switchEn:
+            self.switchInputMode()
+            self.setMarkedText()
+            return true
         }
     }
 

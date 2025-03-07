@@ -245,12 +245,11 @@ class InputProcesser {
             breakPos -= 1
             return .selecting
         case "m":
-            isEnMode.toggle()
             os_log(.debug, log: log, "切换中英模式")
             let range = Range(NSMakeRange(breakPos - 1, 1), in: headAndTail)
             headAndTail = headAndTail.replacingCharacters(in: range!, with: "")
             breakPos -= 1
-            return .typing
+            return .switchEn
         case "s":
             os_log(.debug, log: log, "切换模式命令")
             if headAndTail != "/" {
@@ -314,6 +313,7 @@ enum ResultState {
     case translate
     case toggleTranslate
     case selecting
+    case switchEn
 }
 
 enum CharType {
