@@ -19,12 +19,24 @@ class TransputTests: XCTestCase {
     }
     
     func textExample3() throws {
+        let inputHandler = InputProcesser()
+        inputHandler.initialize(rimeBridge: NSApp.appDelegate.rimeBridge)
+        
+        let _ = inputHandler.processInput(.lower(char: "s"), keyCode: 0x01)
+        var text = inputHandler.getComposingText()
+        print("text: \(text)")
+        print("cursor: \(inputHandler.getCursorPos())")
     }
     
     func testExample2() throws {
         
         let inputHandler = InputProcesser()
         inputHandler.initialize(rimeBridge: NSApp.appDelegate.rimeBridge)
+        if let list = NSApp.appDelegate.rimeBridge.getSchemaList() {
+            for item in list {
+                print("schema name: \(item.schemaName)")
+            }
+        }
         
         let _ = inputHandler.processInput(.lower(char: "s"), keyCode: 0x01)
         var text = inputHandler.getComposingText()

@@ -12,25 +12,21 @@ import os.log
 
 class AppDelegate: NSObject, NSApplicationDelegate {
     var server = IMKServer()
-    var cfgWindow: NSWindow!
+//    var cfgPanel: SettingsPanel!
     var candidatesWindow: IMKCandidates!
     var rimeBridge: RimeBridge!
     func applicationWillFinishLaunching(_ notification: Notification) {
         self.server = IMKServer(name: Bundle.main.infoDictionary?["InputMethodConnectionName"] as? String, bundleIdentifier: Bundle.main.bundleIdentifier)
         self.candidatesWindow = IMKCandidates(server: server, panelType: kIMKSingleRowSteppingCandidatePanel)
-        for window in NSApplication.shared.windows {
-            if window.title == "输入法配置" {
-                self.cfgWindow = window
-            }
-        }
+//        if cfgPanel == nil {
+//            cfgPanel =  SettingsPanel()
+//        }
         
-        guard let rimeBridge = rimeBridge else {
+        if rimeBridge == nil {
             os_log(.info, log: log, "initializing rimeBridge")
             rimeBridge = RimeBridge()
             rimeBridge.setup()
-            rimeBridge.initialize()
             os_log(.info, log: log, "rimeBridge initialized")
-            return 
         }
     }
 

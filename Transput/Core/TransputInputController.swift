@@ -19,6 +19,7 @@ class TransputInputController: IMKInputController {
     private var inputModelabel: NSTextField!
     private var translateSwitchPanel: NSPanel!
     private var translateSwitchLabel: NSTextField!
+//    private var settingsPanel: SettingsPanel!
     private var transBtn: NSButton!
     private var transProg: CustomProgress!
     private var transRect: (x: CGFloat, y: CGFloat, height: CGFloat) = (0, 0, 0)
@@ -38,11 +39,12 @@ class TransputInputController: IMKInputController {
         initTranslateSwitchPanel()
         inputProcesser = InputProcesser()
         inputProcesser.initialize(rimeBridge: NSApp.appDelegate.rimeBridge)
+//        self.settingsPanel = SettingsPanel()
     }
     
     func initTransPanel() {
         os_log(.debug, log: log, "初始化翻译面板")
-        transPanel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 50, height: 26),
+        transPanel = NSPanel(contentRect: NSRect(x: 0, y: 0, width: 100, height: 26),
                             styleMask: [.nonactivatingPanel],
                             backing: .buffered,
                             defer: false)
@@ -59,8 +61,9 @@ class TransputInputController: IMKInputController {
         // 设置内容视图
         transPanel.contentView?.wantsLayer = true
         transPanel.contentView?.layer?.cornerRadius = 5
+        transPanel.contentView?.layer?.borderColor = NSColor.clear.cgColor
 
-        transPanel.contentView?.layer?.backgroundColor = NSColor.red.cgColor
+        transPanel.contentView?.layer?.backgroundColor = NSColor.systemPink.cgColor
         
         
         transProg = CustomProgress(frame: NSRect(x: 0, y: 0, width: 100, height: 26))
@@ -70,7 +73,7 @@ class TransputInputController: IMKInputController {
         transProg.isHidden = true
         transPanel.contentView?.addSubview(transProg)
         
-        transBtn = NSButton(title: "翻译成英语", target: self, action: #selector(buttonClicked))
+        transBtn = NSButton(title: "翻译", target: self, action: #selector(buttonClicked))
         transBtn.isBordered = false
         transBtn.layer?.backgroundColor = NSColor.white.cgColor
         transPanel.contentView?.addSubview(transBtn)
@@ -327,6 +330,9 @@ class TransputInputController: IMKInputController {
             setMarkedText()
             switchTranslate()
             return true
+        case .selecting:
+            self.showSchemaSelect()
+            return true
         }
     }
 
@@ -360,6 +366,10 @@ class TransputInputController: IMKInputController {
     
     
     
+    func showSchemaSelect() {
+        self.setMarkedText()
+    }
+
     
     func setMarkedText() {
         let attrText = withAttribute(self.inputProcesser.getComposingText())
@@ -391,21 +401,25 @@ class TransputInputController: IMKInputController {
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(timerFunc), userInfo: nil, repeats: true)
         let content = self.inputProcesser.getComposingText()
         // 处理按钮点击事件
-        switch ConfigModel.shared.modelType {
-        case .tongyi:
-            TongyiQianWen(apiKey: ConfigModel.shared.apiKey)
-                .translate(content, completion: {response in
-                    self.commitText(response)
-                }, defaultHandler: { () in self.commitText(content) })
-        case .gpt3_5_turbo:
-            Gpt35Turbo(apiKey: ConfigModel.shared.apiKey)
-                .translate(content, completion:{response in
-                    self.commitText(response)
-                }, defaultHandler: { () in self.commitText(content) })
-        default:
-            os_log(.debug, log: log, "未知模型，提交当前内容")
-            self.commitText(content)
-        }
+        CommonAITranslater.shared
+            .translate(content, completion: {response in
+                self.commitText(response)
+            }, defaultHandler: { () in self.commitText(content) })
+//        switch ConfigModel.shared.modelType {
+//        case .tongyi:
+//            CommonAITranslater.shared
+//                .translate(content, completion: {response in
+//                    self.commitText(response)
+//                }, defaultHandler: { () in self.commitText(content) })
+//        case .gpt3_5_turbo:
+//            Gpt35Turbo()
+//                .translate(content, completion:{response in
+//                    self.commitText(response)
+//                }, defaultHandler: { () in self.commitText(content) })
+//        default:
+//            os_log(.debug, log: log, "未知模型，提交当前内容")
+//            self.commitText(content)
+//        }
     }
     
     
@@ -521,31 +535,33 @@ class TransputInputController: IMKInputController {
     
     
     override func menu() -> NSMenu! {
-        let deploy = NSMenuItem(title: NSLocalizedString("Deploy", comment: "Menu item"), action: #selector(deploy), keyEquivalent: "`")
-        deploy.target = self
         let settings = NSMenuItem(title: NSLocalizedString("Settings", comment: "Menu item"), action: #selector(showConfigWindow), keyEquivalent: "`")
         settings.target = self
 
         let menu = NSMenu()
-        menu.addItem(deploy)
         menu.addItem(settings)
         return menu
     }
     
-    @objc func deploy() {
-      NSApp.appDelegate.deploy()
-    }
 
     @objc func showConfigWindow() {
-        if let appDelegae = NSApplication.shared.delegate as? AppDelegate, let cfgWindow = appDelegae.cfgWindow {
+//        if let appDelegae = NSApplication.shared.delegate as? AppDelegate {
             if Thread.isMainThread {
-                cfgWindow.orderFront(nil)
+//                appDelegae.cfgPanel.center()
+//                appDelegae.cfgPanel.makeKeyAndOrderFront(nil)
+                SettingsPanel.shared.showPanel()
+//                self.settingsPanel.showPanel()
             } else {
+                // 当前线程不是主线程，需要在主线程上执行 orderOut
                 DispatchQueue.main.async {
-                    cfgWindow.orderFront(nil)
+//                    appDelegae.cfgPanel.showPanel()
+                    SettingsPanel.shared.showPanel()
+//                    self.settingsPanel.showPanel()
+//                    appDelegae.cfgPanel.center()
+//                    appDelegae.cfgPanel.makeKeyAndOrderFront(nil)
                 }
             }
-        }
+//        }
     }
     
     override func commitComposition(_ sender: Any!) {

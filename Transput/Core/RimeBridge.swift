@@ -8,10 +8,17 @@
 import Foundation
 import os.log
 
+
+struct Schema {
+    var schemaId: String
+    var schemaName: String
+}
+
 class RimeBridge {
-    private let rimeAPI: RimeApi_stdbool = rime_get_api_stdbool().pointee
+    private let rimeApi: RimeApi_stdbool = rime_get_api_stdbool().pointee
     private var committed: String = ""
     var cadidatesArray: [String] = [] //当前候选词列表
+    var schemaList: [Schema]? = nil
     
     func setup() {
         let userDir = if let pwuid = getpwuid(getuid()) {
@@ -35,49 +42,58 @@ class RimeBridge {
         transputTraits.setCString(userDir.path(), to: \.user_data_dir)
         transputTraits.setCString(logDir.path(), to: \.log_dir)
         transputTraits.setCString("Transput", to: \.distribution_code_name)
-        transputTraits.setCString("译输", to: \.distribution_name)
+        transputTraits.setCString("川普", to: \.distribution_name)
         transputTraits.setCString(distributionVersion, to: \.distribution_version)
         transputTraits.setCString("rime.transput", to: \.app_name)
-        rimeAPI.setup(&transputTraits)
-    }
-
-    func initialize() {
-        os_log(.info, log: log, "initializing rime")
-        rimeAPI.initialize(nil)
+        FileManager.default.changeCurrentDirectoryPath(sharedPath)
+        rimeApi.initialize(nil)
+        rimeApi.setup(&transputTraits)
+        let _ = rimeApi.start_maintenance(true)
+        rimeApi.join_maintenance_thread()
     }
     
     func createSession() -> RimeSessionId {
-        return rimeAPI.create_session()
+        return rimeApi.create_session()
     }
     
     func appendInput(_ session: RimeSessionId, keyCode: UInt16, char: Character, onCommit: (String) -> Void) -> String? {
         let rimeKeycode = MacOSKeycode.osxKeycodeToRime(keycode: keyCode, keychar: char,
                                                         shift: false,
                                                         caps: false)
-        let result = rimeAPI.process_key(session, Int32(rimeKeycode), 0)
+        let result = rimeApi.process_key(session, Int32(rimeKeycode), 0)
         if !result {
             os_log(.info, log: log, "maybe not in typing mode, keyCode: %{public}d", keyCode)
             return nil
         }
         rimeUpdate(session, success: result)
-        if !hasUnCommitText(session) {
-            onCommit(committed)
-            committed = ""
-            return ""
-        }
-
-        var ctx = RimeContext_stdbool.rimeStructInit()
-        if rimeAPI.get_context(session, &ctx) {
-            return committed + (ctx.composition.preedit.map({ String(cString: $0) }) ?? "")
+//        if !hasUnCommitText(session) {
+//            onCommit(committed)
+//            committed = ""
+//            return ""
+//        }
+//
+//        var ctx = RimeContext_stdbool.rimeStructInit()
+//        if rimeApi.get_context(session, &ctx) {
+//            return committed + (ctx.composition.preedit.map({ String(cString: $0) }) ?? "")
+//        }
+//        
+//        return nil
+//        
+        if let unCommitedText = unCommitText(session) {
+            return committed + unCommitedText
         }
         
-        return nil
+        os_log(.info, log: log, "has no uncommited text")
+        onCommit(committed)
+        committed = ""
+        
+        return ""
     }
     
     func makeCadidates(_ session: RimeSessionId) {
         var candidates = [String]()
         var ctx = RimeContext_stdbool.rimeStructInit()
-        if rimeAPI.get_context(session, &ctx) {
+        if rimeApi.get_context(session, &ctx) {
             let numCandidates = Int(ctx.menu.num_candidates)
             for i in 0..<numCandidates {
                 let candidate = ctx.menu.candidates[i]
@@ -90,25 +106,25 @@ class RimeBridge {
     }
     
     func clearComposition(_ session: RimeSessionId) {
-        rimeAPI.clear_composition(session)
+        rimeApi.clear_composition(session)
     }
     
-    func hasUnCommitText(_ session: RimeSessionId) -> Bool {
+    func unCommitText(_ session: RimeSessionId) -> String? {
         var ctx = RimeContext_stdbool.rimeStructInit()
-        if rimeAPI.get_context(session, &ctx) {
-            let uncommitText = ctx.composition.preedit.map({ String(cString: $0) }) ?? ""
-            return !uncommitText.isEmpty
+        if rimeApi.get_context(session, &ctx) {
+            let uncommitText = ctx.composition.preedit.map({ String(cString: $0) })
+            return uncommitText
         }
-        return false
+        return nil
     }
     
     private func rimeConsumeCommittedText(_ session: RimeSessionId) {
         var commitText = RimeCommit.rimeStructInit()
-        if rimeAPI.get_commit(session, &commitText) {
+        if rimeApi.get_commit(session, &commitText) {
             if let text = commitText.text {
                 committed.append(contentsOf: String(cString: text))
             }
-            _ = rimeAPI.free_commit(&commitText)
+            _ = rimeApi.free_commit(&commitText)
         }
     }
     
@@ -117,7 +133,7 @@ class RimeBridge {
             os_log(.error, log: log, "cannot find candidates in cadidatesArray")
             return
         }
-        if rimeAPI.select_candidate(session, index) {
+        if rimeApi.select_candidate(session, index) {
             rimeUpdate(session)
             return
         }
@@ -132,7 +148,7 @@ class RimeBridge {
     
     func getCursorPos(_ session: RimeSessionId) -> Int {
         var ctx = RimeContext_stdbool.rimeStructInit()
-        if rimeAPI.get_context(session, &ctx) {
+        if rimeApi.get_context(session, &ctx) {
             return committed.count + Int(ctx.composition.cursor_pos)
         }
         os_log(.error, log: log, "error get composition.cursor_pos")
@@ -141,9 +157,9 @@ class RimeBridge {
     
     func restart() {
         os_log(.info, log: log, "stopping rime")
-        rimeAPI.finalize()
+        rimeApi.finalize()
         os_log(.info, log: log, "starting rime")
-        initialize()
+        setup()
     }
     
     func createDirIfNotExist(path: URL) {
@@ -156,45 +172,46 @@ class RimeBridge {
         }
       }
     }
+    
+    
+    func getSchemaList() -> [Schema]? {
+        os_log(.debug, log: log, "getSchemaList")
+        if schemaList != nil {
+            return schemaList
+        }
+        schemaList = []
+        var list = RimeSchemaList()
+        if rimeApi.get_schema_list(&list) {
+            for item in UnsafeBufferPointer(start: list.list, count: list.size) {
+                let name = String.init(validatingCString: item.name)
+                let id = String.init(validatingCString: item.schema_id)
+                if name == nil || id == nil {
+                    continue
+                }
+                os_log(.debug, log: log, "schema name: \(name!), schema id: \(id!)")
+                schemaList!.append(Schema(
+                    schemaId: id!,
+                    schemaName: name!
+                ))
+            }
+        }
+        return schemaList
+    }
+    
+    func changeSchema(sid: RimeSessionId, schemaId: String) {
+        os_log(.info, log: log, "going to change schema to: %@", schemaId)
+        let _ = schemaId.withCString{cString in
+            if rimeApi.select_schema(sid, cString) {
+                os_log(.info, log: log, "changed schema to %@", schemaId)
+                
+            } else {
+                os_log(.error, log: log, "error change schema to: %@", schemaId)
+            }
+            var status = RimeStatus_stdbool.rimeStructInit()
+            if rimeApi.get_status(sid, &status) {
+                os_log(.info, log: log, "current schema: %@", String.init(validatingCString: status.schema_name)!)
+            }
+        }
+    }
 }
 
-//class KeyCodes {
-//    static let keyMap: [Character: UInt16] = [
-//        "a" : 0x00,
-//        "s" : 0x01,
-//        "d" : 0x02,
-//        "f" : 0x03,
-//        "h" : 0x04,
-//        "g" : 0x05,
-//        "z" : 0x06,
-//        "x" : 0x07,
-//        "c" : 0x08,
-//        "v" : 0x09,
-//        "b" : 0x0B,
-//        "q" : 0x0C,
-//        "w" : 0x0D,
-//        "e" : 0x0E,
-//        "r" : 0x0F,
-//        "y" : 0x10,
-//        "t" : 0x11,
-//        "o" : 0x1F,
-//        "u" : 0x20,
-//        "i" : 0x22,
-//        "p" : 0x23,
-//        "l" : 0x25,
-//        "j" : 0x26,
-//        "k" : 0x28,
-//        "n" : 0x2D,
-//        "m" : 0x2E,
-//        "1" : 0x12,
-//        "2" : 0x13,
-//        "3" : 0x14,
-//        "4" : 0x15,
-//        "6" : 0x16,
-//        "5" : 0x17,
-//        "9" : 0x19,
-//        "7" : 0x1A,
-//        "8" : 0x1C,
-//        "0" : 0x1D
-//    ]
-//}

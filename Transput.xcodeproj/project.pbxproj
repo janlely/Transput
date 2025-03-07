@@ -14,8 +14,6 @@
 		1A41E64226E74627009B65D7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1A41E64126E74627009B65D7 /* AppDelegate.swift */; };
 		E5207A222C5F849A00D78D7A /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A212C5F849A00D78D7A /* main.swift */; };
 		E5207A372C5F8C2100D78D7A /* TransputInputController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A242C5F8C2100D78D7A /* TransputInputController.swift */; };
-		E5207A392C5F8C2100D78D7A /* ConfigWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A272C5F8C2100D78D7A /* ConfigWindowController.swift */; };
-		E5207A3A2C5F8C2100D78D7A /* preferences.xib in Resources */ = {isa = PBXBuildFile; fileRef = E5207A282C5F8C2100D78D7A /* preferences.xib */; };
 		E5207A3B2C5F8C2100D78D7A /* CommonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A2A2C5F8C2100D78D7A /* CommonUtils.swift */; };
 		E5207A3C2C5F8C2100D78D7A /* HttpClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A2B2C5F8C2100D78D7A /* HttpClient.swift */; };
 		E5207A3E2C5F8C2100D78D7A /* TongyiQianWen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5207A2E2C5F8C2100D78D7A /* TongyiQianWen.swift */; };
@@ -32,10 +30,12 @@
 		E57595C72C87E6EA00956346 /* librime.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E57595C32C87E6EA00956346 /* librime.1.dylib */; };
 		E57A020E2C673722009E059C /* logo@2x.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E57A020C2C673722009E059C /* logo@2x.tiff */; };
 		E57A020F2C673722009E059C /* logo.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E57A020D2C673722009E059C /* logo.tiff */; };
-		E59187552C885E6F002DF4CA /* librime-lua.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E57595C22C87E6EA00956346 /* librime-lua.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		E59187572C885E71002DF4CA /* librime-octagram.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E57595C12C87E6EA00956346 /* librime-octagram.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		E59187582C885E72002DF4CA /* librime-predict.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E57595C42C87E6EA00956346 /* librime-predict.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
-		E59187592C885E74002DF4CA /* librime.1.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E57595C32C87E6EA00956346 /* librime.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E59178602D7939500093630F /* librime-lua.dylib in Copy Rime Plugins */ = {isa = PBXBuildFile; fileRef = E559FD9A2C8E8ACD0010BB00 /* librime-lua.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E59178612D7939500093630F /* librime-predict.dylib in Copy Rime Plugins */ = {isa = PBXBuildFile; fileRef = E559FD9B2C8E8ACD0010BB00 /* librime-predict.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E59178622D7939500093630F /* librime-octagram.dylib in Copy Rime Plugins */ = {isa = PBXBuildFile; fileRef = E559FD982C8E8AB70010BB00 /* librime-octagram.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E59178662D793AC10093630F /* librime.1.dylib in Embed Libraries */ = {isa = PBXBuildFile; fileRef = E57595C32C87E6EA00956346 /* librime.1.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		E59178682D794F760093630F /* SettingsPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59178672D794F760093630F /* SettingsPanel.swift */; };
+		E59178BC2D7A944B0093630F /* CommonAITranslater.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59178BB2D7A944B0093630F /* CommonAITranslater.swift */; };
 		E591875B2C886133002DF4CA /* MacOSKeyCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = E591875A2C886133002DF4CA /* MacOSKeyCode.swift */; };
 		E5B075902C83107F0011BCA4 /* InputProcesser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B0758F2C83107F0011BCA4 /* InputProcesser.swift */; };
 		E5B075922C8314CC0011BCA4 /* Gpt35Turbo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B075912C8314CC0011BCA4 /* Gpt35Turbo.swift */; };
@@ -61,16 +61,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		E591785F2D79393D0093630F /* Copy Rime Plugins */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "rime-plugins";
+			dstSubfolderSpec = 10;
+			files = (
+				E59178602D7939500093630F /* librime-lua.dylib in Copy Rime Plugins */,
+				E59178612D7939500093630F /* librime-predict.dylib in Copy Rime Plugins */,
+				E59178622D7939500093630F /* librime-octagram.dylib in Copy Rime Plugins */,
+			);
+			name = "Copy Rime Plugins";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E59187562C885E6F002DF4CA /* Embed Libraries */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E59187592C885E74002DF4CA /* librime.1.dylib in Embed Libraries */,
-				E59187552C885E6F002DF4CA /* librime-lua.dylib in Embed Libraries */,
-				E59187572C885E71002DF4CA /* librime-octagram.dylib in Embed Libraries */,
-				E59187582C885E72002DF4CA /* librime-predict.dylib in Embed Libraries */,
+				E59178662D793AC10093630F /* librime.1.dylib in Embed Libraries */,
 			);
 			name = "Embed Libraries";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,8 +100,6 @@
 		1A41E64826E7495A009B65D7 /* Transput.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Transput.entitlements; sourceTree = "<group>"; };
 		E5207A212C5F849A00D78D7A /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		E5207A242C5F8C2100D78D7A /* TransputInputController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransputInputController.swift; sourceTree = "<group>"; };
-		E5207A272C5F8C2100D78D7A /* ConfigWindowController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ConfigWindowController.swift; sourceTree = "<group>"; };
-		E5207A282C5F8C2100D78D7A /* preferences.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = preferences.xib; sourceTree = "<group>"; };
 		E5207A2A2C5F8C2100D78D7A /* CommonUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommonUtils.swift; sourceTree = "<group>"; };
 		E5207A2B2C5F8C2100D78D7A /* HttpClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpClient.swift; sourceTree = "<group>"; };
 		E5207A2E2C5F8C2100D78D7A /* TongyiQianWen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TongyiQianWen.swift; sourceTree = "<group>"; };
@@ -111,6 +119,8 @@
 		E57A02022C670835009E059C /* TransputTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = TransputTests.xctestplan; sourceTree = SOURCE_ROOT; };
 		E57A020C2C673722009E059C /* logo@2x.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "logo@2x.tiff"; sourceTree = "<group>"; };
 		E57A020D2C673722009E059C /* logo.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = logo.tiff; sourceTree = "<group>"; };
+		E59178672D794F760093630F /* SettingsPanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsPanel.swift; sourceTree = "<group>"; };
+		E59178BB2D7A944B0093630F /* CommonAITranslater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonAITranslater.swift; sourceTree = "<group>"; };
 		E591875A2C886133002DF4CA /* MacOSKeyCode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MacOSKeyCode.swift; sourceTree = "<group>"; };
 		E59515B92C8561F100A1FA03 /* Pinyin-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pinyin-Bridging-Header.h"; sourceTree = "<group>"; };
 		E5B0758F2C83107F0011BCA4 /* InputProcesser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputProcesser.swift; sourceTree = "<group>"; };
@@ -229,9 +239,8 @@
 		E5207A292C5F8C2100D78D7A /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				E5207A272C5F8C2100D78D7A /* ConfigWindowController.swift */,
-				E5207A282C5F8C2100D78D7A /* preferences.xib */,
 				E5E2D38E2C6F3E39002EAF5D /* CustomProgess.swift */,
+				E59178672D794F760093630F /* SettingsPanel.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -251,6 +260,7 @@
 				E5207A2E2C5F8C2100D78D7A /* TongyiQianWen.swift */,
 				E5207A2F2C5F8C2100D78D7A /* Translater.swift */,
 				E5B075912C8314CC0011BCA4 /* Gpt35Turbo.swift */,
+				E59178BB2D7A944B0093630F /* CommonAITranslater.swift */,
 			);
 			path = Translate;
 			sourceTree = "<group>";
@@ -302,6 +312,7 @@
 				1A41E61226E745D9009B65D7 /* Resources */,
 				E59187562C885E6F002DF4CA /* Embed Libraries */,
 				E5DD498E2C8FF260001AB529 /* ShellScript */,
+				E591785F2D79393D0093630F /* Copy Rime Plugins */,
 			);
 			buildRules = (
 			);
@@ -399,7 +410,6 @@
 				E5207A402C5F8C2100D78D7A /* Preview Assets.xcassets in Resources */,
 				E57A020F2C673722009E059C /* logo.tiff in Resources */,
 				E57A020E2C673722009E059C /* logo@2x.tiff in Resources */,
-				E5207A3A2C5F8C2100D78D7A /* preferences.xib in Resources */,
 				1A41E61C26E745DD009B65D7 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,7 +446,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# 目标SharedSupport目录路径\nDESTINATION_FOLDER=\"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/SharedSupport\"\n\n# 创建SharedSupport目录（如果不存在）\nmkdir -p \"${DESTINATION_FOLDER}\"\n\n# 复制源文件夹到SharedSupport目录\ncp -r ${PROJECT_DIR}/schema/Pinyin/* \"${DESTINATION_FOLDER}\"\n\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# 目标SharedSupport目录路径\nDESTINATION_FOLDER=\"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/SharedSupport\"\n\n# 创建SharedSupport目录（如果不存在）\nmkdir -p \"${DESTINATION_FOLDER}\"\n\n# 复制源文件夹到SharedSupport目录\ncp -r ${PROJECT_DIR}/plan/* \"${DESTINATION_FOLDER}\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -447,8 +457,8 @@
 			files = (
 				E591875B2C886133002DF4CA /* MacOSKeyCode.swift in Sources */,
 				1A41E64226E74627009B65D7 /* AppDelegate.swift in Sources */,
-				E5207A392C5F8C2100D78D7A /* ConfigWindowController.swift in Sources */,
 				E52B643A2C8AD6BC00D6B658 /* RimeBridge.swift in Sources */,
+				E59178682D794F760093630F /* SettingsPanel.swift in Sources */,
 				E52B64382C8AD4D700D6B658 /* BridgingFunctions.swift in Sources */,
 				E5207A3C2C5F8C2100D78D7A /* HttpClient.swift in Sources */,
 				E5207A372C5F8C2100D78D7A /* TransputInputController.swift in Sources */,
@@ -458,6 +468,7 @@
 				E5B075922C8314CC0011BCA4 /* Gpt35Turbo.swift in Sources */,
 				E5207A412C5F8C2100D78D7A /* ConfigModel.swift in Sources */,
 				E5E2D38F2C6F3E39002EAF5D /* CustomProgess.swift in Sources */,
+				E59178BC2D7A944B0093630F /* CommonAITranslater.swift in Sources */,
 				E5B075902C83107F0011BCA4 /* InputProcesser.swift in Sources */,
 				E5207A3B2C5F8C2100D78D7A /* CommonUtils.swift in Sources */,
 				E5207A222C5F849A00D78D7A /* main.swift in Sources */,

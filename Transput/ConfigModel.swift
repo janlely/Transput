@@ -11,8 +11,10 @@ class ConfigModel {
     static let shared = ConfigModel()
     private init() {}
     
-    var modelType: LLMType?
+//    var modelType: LLMType?
+    var url: String!
     var apiKey: String!
+    var prompt: String!
     var useAITrans: Bool = false
     
 }
@@ -21,4 +23,5 @@ class ConfigModel {
 enum LLMType {
     case tongyi
     case gpt3_5_turbo
+    case deepseek_v3
 }

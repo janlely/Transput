@@ -26,6 +26,7 @@ func convertPunctuation(_ char: Character) -> Character {
     case "\\": "、"
     case " ": " "
     case ":": "："
+    case ";": "；"
     default: char
     }
 }

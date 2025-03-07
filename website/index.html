@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh">
+<!-- Head部分保持不变，只需在style中添加新的样式 -->
+<head>
+    <!-- 前面的所有内容保持不变 -->
+    <style>
+        /* 保留之前的所有样式 */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .github-link {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            color: #000;
+            gap: 0.5rem;
+        }
+
+        .github-icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        .content {
+            padding: 6rem;
+        }
+
+        .kbd {
+            background-color: #f8f9fa;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            display: inline-block;
+            font-family: Monaco, Consolas, monospace;
+            font-size: 0.9em;
+            padding: 0.2em 0.4em;
+            color: #374151;
+            margin: 0 0.2em;
+        }
+
+        .cmd {
+            background-color: #e5e7eb;
+            color: #2563eb;
+            border-radius: 4px;
+            padding: 0.2em 0.4em;
+            font-family: Monaco, Consolas, monospace;
+            font-size: 0.9em;
+            font-weight: 500;
+            margin: 0 0.2em;
+        }
+
+        .hl {
+            background-color: #e5e7eb;
+            color: #2563eb;
+            border-radius: 4px;
+            font-family: Monaco, Consolas, monospace;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        /* 为命令添加悬停效果 */
+        .kbd:hover, .cmd:hover {
+            background-color: #e5e7eb;
+            transition: background-color 0.2s ease;
+        }
+
+        /* 添加新的网格布局样式 */
+        .features {
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .feature-item {
+
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .feature-content {
+            flex-grow: 1;
+        }
+
+        .feature-gif {
+            margin-top: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            aspect-ratio: 16/9;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .feature-gif img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header部分保持不变 -->
+
+    <header>
+        <div class="header-content">
+            <a href="#" class="logo">Transput输入法</a>
+            <a href="https://github.com" class="github-link">
+                <svg class="github-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                </svg>
+                GitHub
+            </a>
+        </div>
+    </header>
+    <main>
+        <div class="content">
+            <h1>基于Rime引擎的Mac智能翻译输入法</h1>
+            <p>Transput是一款基于Rime引擎开发的Mac智能翻译输入法，用户可选择模型并自定义翻译提示词实现输入之后的自动翻译。</p>
+
+            <div class="features">
+                <div class="feature-item">
+                    <div class="feature-content">
+                        <h3>即时翻译</h3>
+                        <p>输入完成后使用<span class="kbd">Ctrl</span> + <span class="kbd">Enter</span>或<span class="cmd">/t</span>(<span class="hl">t</span>ranslate)调用翻译功能</p>
+                    </div>
+                    <div class="feature-gif">
+                      <video controls width="100%">
+                        <source src="translate-crop.mp4" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                      </video>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-content">
+                        <h3>翻译开启与关闭</h3>
+                        <p>输入开始前可以使用<span class="cmd">/s</span>(<span class="hl">s</span>witch)灵活控制翻译功能的开启与关闭</p>
+                    </div>
+                    <div class="feature-gif">
+                      <video controls width="100%">
+                        <source src="switch-crop.mp4" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                      </video>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-content">
+                        <h3>剪切板引入</h3>
+                        <p>输入<span class="cmd">/v</span>命令自动引入剪切板内容</p>
+                    </div>
+                    <div class="feature-gif">
+                      <video controls width="100%">
+                        <source src="paste-crop.mp4" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                      </video>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-content">
+                        <h3>输入方案选择</h3>
+                        <p>输入<span class="cmd">/c</span>(<span class="hl">c</span>hange schema)可切换输入方案</p>
+                    </div>
+                    <div class="feature-gif">
+                      <video controls width="100%">
+                        <source src="switchschema-crop.mp4" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                      </video>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-content">
+                        <h3>模型与Apikey设置</h3>
+                        <p>点击输入法菜单中的Settings打开设置窗口</p>
+                    </div>
+                    <div class="feature-gif">
+                      <video controls width="100%">
+                        <source src="config-crop.mp4" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                      </video>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-content">
+                        <h3>中英混合输入</h3>
+                        <p>输入过程中使用<span class="kbd">Shift</span>或<span class="cmd">/m</span>(<span class="hl">m</span>ode)切换中英模式</p>
+                    </div>
+                    <div class="feature-gif">
+                      <video controls width="100%">
+                        <source src="mix-crop.mp4" type="video/mp4">
+                        您的浏览器不支持 video 标签。
+                      </video>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

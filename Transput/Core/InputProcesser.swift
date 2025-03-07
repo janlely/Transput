@@ -18,6 +18,7 @@ class InputProcesser {
     var cadidatesRange: [Int] = [] //候选词对应的编码长度
     var isEnMode: Bool = false
     private var isCommandMode: Bool = false
+    private var isSelectingMode: Bool = false
     var rimeBridge: RimeBridge!
     private var session: RimeSessionId = 0
 
@@ -26,6 +27,7 @@ class InputProcesser {
         self.rimeBridge = rimeBridge
         if session == 0 {
             session = rimeBridge.createSession()
+            os_log(.info, log: log, "session created: %d", session)
         }
     }
     
@@ -85,6 +87,26 @@ class InputProcesser {
 
 
     func doProcessInput(_ charType: CharType, keyCode: UInt16) -> ResultState {
+        //切换输入方案
+        if isSelectingMode {
+            //选择输入方案
+            if case let .number(num) = charType {
+                os_log(.default, log: log, "selecting index: %{public}s", String(num))
+            }
+            if let schemaList = rimeBridge.getSchemaList() {
+                os_log(.default, log: log, "shcema list count: %{public}d", schemaList.count)
+            }
+            if case let .number(n) = charType,
+               let schemaList = rimeBridge.getSchemaList(),
+               let index = n.wholeNumberValue,
+               schemaList.count >= index {
+                os_log(.debug, log: log, "changing schema to %{public}s", schemaList[index - 1].schemaName)
+                rimeBridge.changeSchema(sid: session, schemaId: schemaList[index - 1].schemaId)
+                isSelectingMode.toggle()
+                return .typing
+            }
+            isSelectingMode.toggle()
+        }
         switch charType {
         case .backspace:
             if isTyping {
@@ -215,6 +237,20 @@ class InputProcesser {
             headAndTail = headAndTail.replacingCharacters(in: range!, with: "")
             breakPos -= 1
             return headAndTail.isEmpty ? .typing : .commit
+        case "c":
+            os_log(.debug, log: log, "切换方案")
+            isSelectingMode.toggle()
+            let range = Range(NSMakeRange(breakPos - 1, 1), in: headAndTail)
+            headAndTail = headAndTail.replacingCharacters(in: range!, with: "")
+            breakPos -= 1
+            return .selecting
+        case "m":
+            isEnMode.toggle()
+            os_log(.debug, log: log, "切换中英模式")
+            let range = Range(NSMakeRange(breakPos - 1, 1), in: headAndTail)
+            headAndTail = headAndTail.replacingCharacters(in: range!, with: "")
+            breakPos -= 1
+            return .typing
         case "s":
             os_log(.debug, log: log, "切换模式命令")
             if headAndTail != "/" {
@@ -231,6 +267,11 @@ class InputProcesser {
 
     
     func makeCadidates() -> [String] {
+        os_log(.debug, log: log, "isSelectingMode: \(self.isSelectingMode)")
+        if isSelectingMode {
+            rimeBridge.cadidatesArray = rimeBridge.getSchemaList()!.map { $0.schemaName }
+            return rimeBridge.cadidatesArray
+        }
         if isEnMode {
             os_log(.info, log: log, "isEnMode,返回空的候选词")
             return []
@@ -250,7 +291,7 @@ class InputProcesser {
     
     func select(_ value: String) {
         rimeBridge.selectCandidates(session, text: value)
-        if !rimeBridge.hasUnCommitText(session) {
+        if rimeBridge.unCommitText(session) == nil {
             isTyping = false
         }
     }
@@ -272,6 +313,7 @@ enum ResultState {
     case typing
     case translate
     case toggleTranslate
+    case selecting
 }
 
 enum CharType {

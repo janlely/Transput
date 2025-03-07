@@ -10,16 +10,14 @@ import os.log
 
 class Gpt35Turbo: Translater {
     
-    var apiKey: String
+    var apiKey: String = ConfigModel.shared.apiKey
+    var prompt: String = ConfigModel.shared.prompt
     var url: String = "https://aihubmix.com/v1/chat/completions"
     
-    init(apiKey: String) {
-        self.apiKey = apiKey
-    }
     
     func translate(_ content: String, completion: @escaping (String) -> Void, defaultHandler: @escaping () -> Void) {
         let request = ChatRequest(model: "qwen-turbo", messages: [
-            ChatRequest.Message(role: "system", content: "You are a translator. For each subsequent question, you must translate it into English directly."),
+            ChatRequest.Message(role: "system", content: prompt),
             ChatRequest.Message(role: "user", content: content),
         ])
         

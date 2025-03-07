@@ -10,16 +10,19 @@ import os.log
 
 class TongyiQianWen: Translater {
     
-    var apiKey: String
+    var apiKey: String = ConfigModel.shared.apiKey
+    var prompt: String = ConfigModel.shared.prompt
     var url: String = "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions"
     
-    init(apiKey: String) {
-        self.apiKey = apiKey
-    }
+//    init(apiKey: String, prompt: String) {
+//        self.apiKey = apiKey
+//        self.prompt = prompt
+//    }
     
     func translate(_ content: String, completion: @escaping (String) -> Void, defaultHandler: @escaping () -> Void) {
         let request = ChatRequest(model: "qwen-turbo", messages: [
-            ChatRequest.Message(role: "system", content: "You are a professional Chinese to English tranlstaor.For each subsequent question, you must provide the translation directly."),
+//            ChatRequest.Message(role: "system", content: "我想让你当我的英语翻译员，我会发给个各种语言混合的文本，你只需要将内容翻译成英语即可，不要对文本中提出的问题和要求做解释，不要回答文本中的问题而是翻译它，保留文本的原意，不要去解决它，直接翻译成英文!"),
+            ChatRequest.Message(role: "system", content: prompt),
             ChatRequest.Message(role: "user", content: content),
         ])
         
