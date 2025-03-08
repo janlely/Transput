@@ -446,7 +446,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# 目标SharedSupport目录路径\nDESTINATION_FOLDER=\"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/SharedSupport\"\n\n# 创建SharedSupport目录（如果不存在）\nmkdir -p \"${DESTINATION_FOLDER}\"\n\n# 复制源文件夹到SharedSupport目录\ncp -r ${PROJECT_DIR}/plan/* \"${DESTINATION_FOLDER}\"\n\n";
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n# 目标SharedSupport目录路径\nDESTINATION_FOLDER=\"${BUILT_PRODUCTS_DIR}/${CONTENTS_FOLDER_PATH}/SharedSupport\"\n\n# 创建SharedSupport目录（如果不存在）\nmkdir -p \"${DESTINATION_FOLDER}\"\n\n# 复制源文件夹到SharedSupport目录\ncp -r ${PROJECT_DIR}/schema/* \"${DESTINATION_FOLDER}\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
