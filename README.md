@@ -54,11 +54,10 @@ Transput 的诞生离不开以下开源项目：
 
 - [Rime](https://rime.im/)：中州韵输入法引擎
 - [Typut](https://github.com/ensan-hcl/Typut)：输入法基础框架
-- [Squirrel](https://github.com/rime/squirrel)：输入法 Mac 平台的实现
+- [Squirrel](https://github.com/rime/squirrel)
 - [极点五笔](https://github.com/KyleBing/rime-wubi86-jidian)：五笔输入方案
-- [五笔拼音](https://github.com/rime/rime-wubi)
+- [五笔拼音](https://github.com/rime/rime-wubi)：五笔拼音混合输入方案
 - [雾凇拼音](https://github.com/iDvel/rime-ice)：拼音输入方案
-- [Typut](https://github.com/ensan-hcl/Typut)
 
 同时也感谢所有为本项目贡献代码的开发者们！
 
