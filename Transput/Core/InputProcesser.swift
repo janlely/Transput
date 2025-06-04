@@ -61,7 +61,7 @@ class InputProcesser {
         let im = isCommandMode
         defer {
             if im {
-                isCommandMode.toggle()
+                isCommandMode = false
             }
         }
         return doProcessInput(charType, keyCode: keyCode)
@@ -165,8 +165,9 @@ class InputProcesser {
                 sendToRime(keyCode: keyCode, char: char)
                 return isTyping ? .typing : .conditionalCommit
             }
+            
             if !isEnMode {
-                accept(String(convertPunctuation(char)))
+                sendToRime(keyCode: keyCode, char: char)
             } else {
                 accept(String(char))
             }
@@ -210,7 +211,7 @@ class InputProcesser {
             }
             isCommandMode.toggle()
             os_log(.debug, log: log, "命令状态: %{public}s", isCommandMode ? "Yes" : "No")
-            return isCommandMode ? doProcessInput(.other(char: "/"), keyCode: keyCode) : .typing
+            return isCommandMode ? doProcessInput(.other(char: "/"), keyCode: keyCode) : .conditionalCommit
         }
     }
     
